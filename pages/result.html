@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              clifford: "#da373d",
+            },
+          },
+        },
+        // corePlugins: {
+        //   preflight: true,
+        // },
+      };
+    </script>
+    <title>Movie Recommender</title>
+  </head>
+  <body class="p-0 m-0 border-box bg-[#0c0c0c]">
+    <nav class="sticky top-0 z-50">
+      <div
+        class="w-full h-[60px] flex justify-center items-center border-b border-zinc-800 bg-zinc-950"
+      >
+        <div class="w-full max-w-[1000px] px-3 text-white">
+          <a href="/" class="text-xl cursor-pointer">Cinemunity</a>
+        </div>
+        <div class="flex gap-5 text-white">
+          <a href="../pages/trending.html">Trending</a>
+          <a href="#">Movies</a>
+        </div>
+      </div>
+    </nav>
+    <div id="root" class="w-full flex flex-col items-center">
+      <div
+        id="movies"
+        class="w-full max-w-[1200px] flex justify-center flex-wrap"
+      >
+        <!-- Movie cards will be injected here -->
+      </div>
+    </div>
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const movieTitle = urlParams.get("query");
+
+      // Construct URL for TMDb API search endpoint
+      const apiKey = "aab044a8c8a395ff28b777d2c0f890b1";
+      const baseUrl = "https://api.themoviedb.org/3";
+      const searchEndpoint = "/search/movie";
+      const language = "en-US";
+      const includeAdult = false;
+      const page = 1;
+      const searchUrl = `${baseUrl}${searchEndpoint}?api_key=${apiKey}&query=${encodeURIComponent(
+        movieTitle
+      )}&include_adult=${includeAdult}&language=${language}&page=${page}`;
+
+      // Fetch search results from TMDb API
+      const options = {
+        method: "GET",
+        headers: {
+          accept: "application/json",
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhYWIwNDRhOGM4YTM5NWZmMjhiNzc3ZDJjMGY4OTBiMSIsInN1YiI6IjY2MzIyNzJhYzM5MjY2MDEyOTZkMGUwYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.1I-t6H1Iy8BOUZ_14U-uC-QeZCsG0JOxB8l6axB2yXQ",
+        },
+      };
+
+      const MovieCard = (movie) => {
+        return `
+      <div class="bg-zinc-950 text-white rounded-lg border border-zinc-800 p-4 m-4 w-64">
+        <div class="overflow-hidden rounded-lg">
+          <img class="rounded-lg w-full h-80 object-cover hover:scale-110 transition-all duration-300" src="${movie.poster
+          }" alt="${movie.title}">
+        </div>
+        <div class="mt-4">
+          <p class="text-xl hover:text-blue-600 cursor-pointer font-semibold movie-title">${
+            movie.title
+          }</p>
+          <div class="mt-2 text-zinc-300">
+            <span class="block">Popularity: ${movie.popularity}</span>
+            <span class="block">Rating: ${movie.vote_average}</span>
+          </div>
+        </div>
+      </div>
+    `;
+      };
+      let allData = [];
+      fetch(searchUrl, options)
+        .then((response) => response.json())
+        .then((data) => {
+          // Display search results
+          const searchResultsContainer = document.getElementById("movies");
+          if (data.results && data.results.length > 0) {
+            data.results.forEach((movie) => {
+              allData.push({
+                id: movie.id,
+                title: movie.title,
+                overview: movie.overview,
+                poster: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+                popularity: movie.popularity,
+                vote_average: movie.vote_average,
+              });
+
+            });
+
+            allData.forEach((movie)=> {
+              localStorage.setItem(movie.title, JSON.stringify(movie));
+              searchResultsContainer.innerHTML += MovieCard(movie);
+            })
+          } else {
+            searchResultsContainer.innerHTML =
+              '<p class="w-full h-[300px] p-5 text-3xl text-zinc-500 flex justify-center items-center">No results found</p>';
+          }
+        })
+        .catch((err) => console.error(err));
+      document.addEventListener("click", (e) => {
+        if (e.target.classList.contains("movie-title")) {
+          console.log(e.target.textContent);
+          window.location.href = `/pages/details.html?title=${e.target.textContent}`;
+        }
+      });
+    </script>
+  </body>
+</html>

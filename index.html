@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              clifford: "#da373d",
+            },
+          },
+        },
+      };
+    </script>
+    <title>Movie Recommender</title>
+    <style>
+      .background {
+        background-image: url("../assets/home.jpg");
+        background-size: cover;
+        background-position: center;
+        filter: blur(10px);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -2;
+      }
+      .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.75); /* Black overlay with 50% opacity */
+        z-index: -1;
+      }
+    </style>
+  </head>
+  <body
+    class="relative p-0 m-0 bg-[#0c0c0c] border-box font-sans overflow-y-scroll"
+  >
+    <div class="background"></div>
+    <div class="overlay"></div>
+    <nav class="sticky top-0 z-50 bg-zinc-950">
+      <div
+        class="w-full h-[60px] flex justify-center items-center border-b border-zinc-800"
+      >
+        <div class="w-full max-w-[1000px] px-3 text-white">
+          <a href="/" class="text-xl cursor-pointer">Cinemunity</a>
+        </div>
+        <div class="flex gap-5 text-white">
+          <a href="./pages/trending.html">Trending</a>
+          <a href="./pages/movies.html">Movies</a>
+        </div>
+      </div>
+    </nav>
+    <div class="w-full flex justify-center">
+      <header
+        class="w-full max-w-[1200px] h-[calc(100vh-60px)] flex flex-col gap-10 items-center justify-center p-2"
+      >
+        <div class="flex">
+          <input
+             id="search-input"
+            class="px-5 py-3 border border-zinc-700 bg-black text-white rounded-[20px_0px_0px_20px]"
+            type="text"
+          /><button id="search" class="text-black px-5 py-3 rounded-[0px_20px_20px_0px] bg-white">serach</button>
+        </div>
+        <h1 class="text-7xl font-bold text-white">Every film tells a story</h1>
+        <p class="text-zinc-200 text-xl">Checkout the cinemunity now!</p>
+        <div class="flex gap-5">
+          <a
+            class="px-10 py-3 bg-black text-white border-2 border-zinc-800 rounded-full"
+            href="/pages/movies.html"
+            >Explore</a
+          >
+          <a
+            class="px-10 py-3 bg-white border border-zinc-400 text-black rounded-full"
+            href="/pages/team.html"
+            >Team</a
+          >
+        </div>
+      </header>
+    </div>
+    <script>
+      const search = document.getElementById("search");
+      const searchInput = document.getElementById("search-input");
+      search.addEventListener("click", async () => {
+        if(!searchInput.value){
+          alert("Please enter a search term");
+          return
+        }
+        window.location.href = `/pages/result.html?query=${searchInput.value}`;
+      });
+    </script>
+  </body>
+</html>

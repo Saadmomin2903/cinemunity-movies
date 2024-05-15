@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              clifford: "#da373d",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .skl {
+        animation: skeleton 1s alternate infinite;
+      }
+      @keyframes skeleton {
+        from {
+          background-color: #334155;
+        }
+        to {
+          background-color: #1e293b;
+        }
+      }
+    </style>
+    <title>Team</title>
+  </head>
+  <body class="p-0 m-0 bg-[#0c0c0c] border-box font-sans overflow-y-scroll">
+    <nav class="sticky top-0 z-50">
+      <div
+        class="w-full h-[60px] flex justify-center items-center bg-zinc-950 border-b border-zinc-800"
+      >
+        <div class="w-full max-w-[1000px] px-3 text-white">
+          <a href="/" class="text-xl cursor-pointer">Cinemunity</a>
+        </div>
+        <div class="flex gap-5 text-white">
+          <a href="../pages/trending.html">Trending</a>
+          <a href="#">Movies</a>
+        </div>
+      </div>
+    </nav>
+    <div
+      class="w-full max-w-[1200px] flex flex-col gap-5 border-l border-r p-5 border-zinc-800 mx-auto"
+    >
+     <div class="flex sm:flex-row flex-col   p-5 bg-zinc-800 rounded-xl">
+        <div class="w-[350px]">
+            <img class="rounded-xl" src="../assets/Saad.jpeg.jpg" alt="saad">
+        </div>
+        <div class="w-full p-5 text-white">
+             <h2 class="text-2xl">Saad Momin</h2>
+             <p>Recommendation engine   </p>
+        </div>
+     </div>
+     <div class="flex sm:flex-row flex-col   p-5 bg-zinc-800 rounded-xl">
+        <div class="w-[350px]">
+            <img class="rounded-xl" src="../assets/sandesh.png" alt="sandesh">
+        </div>
+        <div class="w-full p-5 text-white">
+             <h2 class="text-2xl">Sandesh Sawant</h2>
+             <p>CSS development</p>
+        </div>
+     </div>
+     <div class="flex sm:flex-row flex-col   p-5 bg-zinc-800 rounded-xl">
+        <div class="w-[350px]">
+            <img class="rounded-xl h-80" src="../assets/aman.png" alt="aman">
+        </div>
+        <div class="w-full p-5 text-white">
+             <h2 class="text-2xl">Aman Shaikh</h2>
+             <p>JS developer</p>
+        </div>
+     </div>
+     <div class="flex sm:flex-row flex-col   p-5 bg-zinc-800 rounded-xl">
+        <div class="w-[350px]">
+            <img class="rounded-xl h-80" src="../assets/vinit.png" alt="vinit">
+        </div>
+        <div class="w-full p-5 text-white">
+             <h2 class="text-2xl">Vinit Tippanvar</h2>
+             <p>Deployment engineer</p>
+        </div>
+     </div>
+    </div>
+
+    <script src="../scripts/details.js"></script>
+  </body>
+</html>

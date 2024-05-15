@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              clifford: "#da373d",
+            },
+          },
+        },
+        // corePlugins: {
+        //   preflight: true,
+        // },
+      };
+    </script>
+    <title>Movie Recommender</title>
+  </head>
+  <body class="p-0 m-0 border-box bg-[#0c0c0c]">
+   <nav class="sticky top-0 z-50">
+    <div class="w-full h-[60px] flex justify-center items-center border-b border-zinc-800 bg-zinc-950">
+      <div class="w-full max-w-[1000px] px-3 text-white">
+        <a href="/" class="text-xl cursor-pointer">Cinemunity</a>
+      </div>
+      <div class="flex gap-5 text-white">
+         <a href="../pages/trending.html">Trending</a>
+         <a class="text-blue-600 underline" href="#">Movies</a>
+      </div>   
+    </div> 
+   </nav>
+   <div id="root" class="w-full flex flex-col items-center">
+    <div id="movies" class="w-full max-w-[1200px] flex justify-center flex-wrap">
+        <!-- Movie cards will be injected here -->
+    </div>
+    <div class="py-5 w-full max-w-[1100px] flex justify-center gap-10 gap-5">
+        <button id="prevPage" class="px-3 py-2 rounded-lg border w-[120px] bg-black text-white">Prev</button>
+        <button id="nextPage" class="px-3 py-2 rounded-lg border w-[120px] bg-black text-white">Next</button>
+    </div>
+</div>
+   <script src="../scripts/movies.js"></script>
+  </body>
+</html>
